@@ -2,10 +2,8 @@
 
 - Hyper Markup Text Language
   - 프로그래밍 언어는 아니고, 우리가 보는 웹페이지가 어떻게 구조화되어 있는지 브라우저로 하여금 알 수 있도록 하는 마크업 언어
-
 - Element
-  ![Alt text](https://mdn.mozillademos.org/files/9347/
-  grumpy-cat-small.png)
+  ![image](https://mdn.mozillademos.org/files/9347/grumpy-cat-small.png)
 - 블럭 레벨 요소 vs 인라인 요소(Block versus inline elements)
   - 블록 레벨 요소
     - 이전과 이후 요소사이의 줄을 바꾼다.
