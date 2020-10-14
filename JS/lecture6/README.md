@@ -231,7 +231,7 @@ alert(friend.constructor == Person);  //false (4)
 
 (3) friend.constructor는 **`friend` -> `Person.prototype` -> `Object.prototype`** 순서로 찾음
 - friend.(\__proto__).constructor === friend.(\__proto__).(\__proto__).constructor
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype2.JPG?raw=true)
 
 (4) false가 아닌 true려면 아래와 같이 직접 삽입
 
@@ -391,7 +391,7 @@ friend.sayName(); // 'Nicholas'
 ## 3. 상속
 prototype을 상속한다 => prototype은 \__proto__ 으로 바라보는 객체
 ### 3.1. 프로토타입 체인
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.JPG?raw=true)
 ```javascript
 function SuperType(){
     this.superProperty = true;
