@@ -125,13 +125,14 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
   
  ### 2.2. 생성자 패턴
  - 팩토리 패턴과 다르게 명시적으로 객체를 생성하지 않으며 프로퍼티와 메서드는 this 객체에 직접적으로 할당
- - instanceof 연산자와 constructor 프로퍼티를 활용하여 객체의 타입을 확인할 수 있다
+ - `instanceof 연산자`와 `constructor 프로퍼티`를 활용하여 객체의 타입을 확인할 수 있다
 #### new 연산자의 동작
 > new Foo(...)이 실행되는 경우
-> 1. [Foo.prototype](#prototype 프로퍼티)을 상속하는 새로운 객체 생성
+> 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
 > 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo이 호출
 > 3. 생성한 객체를 리턴
-> 생성된 객체는 Foo.prototype을 가리키는 \__proto__ ([[Prototype]])을 가진다. 
+> 생성된 객체는 Foo.prototype을 가리키는 **\__proto__** 을 가진다. 
+> (예전엔 \__proto__ 가 [[Prototype]]이었음)
   ``` javascript
 function Person(name, age, job){ // 생성자 패턴에서 함수명은 대문자로 시작
     this.name = name;
@@ -179,11 +180,11 @@ function sayName(){
 ### 2.3. 프로토타입 패턴
 - 모든 함수는 prototype 프로퍼티를 가지며, prototype 프로퍼티는 함수를 생성자로 호출할 때 생성되는 인스턴스가 가져야 할 프로퍼티와 메서드를 가지고 있다.
 - prototype 프로퍼티의 프로퍼티와 메서드는 생성자 함수를 통해 생성된 모든 인스턴스가 공유한다.
-> [new 연산자의 동작 참고](#new 연산자의 동작)
+- [new 연산자의 동작 참고](#new-연산자의-동작)
 #### prototype 프로퍼티
-> 함수가 생성될 때 같이 생성된다.
+> 함수가 생성될 때 같이 생성된다.  
 > 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
-> ![Alt text](prototype.jpg)
+> ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
 ``` javascript 
 function Person(){
 }
@@ -206,9 +207,9 @@ alert(person1.sayName == person2.sayName);  //true
 
 - 또 다른 방법
 ```javascript
-function Person(){
+function Person(){ // (1)
 }
-Person.prototype = {
+Person.prototype = { // (2)
     name : "Nicholas",
     age : 29,
     job: "Software Engineer",
@@ -220,18 +221,28 @@ var friend = new Person();
 
 alert(friend instanceof Object);  //true
 alert(friend instanceof Person);  //true
-alert(friend.constructor == Person);  //false
-alert(friend.constructor == Object);  //true
+alert(friend.constructor == Object);  //true (3)
+alert(friend.constructor == Person);  //false (4)
 ```
 
-- constructor 프로퍼티는 함수가 생성될 때 자동으로 생기는 prototype 프로퍼티에 들어있는데,
-constructor 프로퍼티가 들어있는 prototype 프로퍼티를 덮어씌워버렸기 때문에 없는거임..
-- 이렇게 한 경우 instanceof를 하면 Person의 인스턴스가 맞다고하지만,
-constructor프로퍼티는 __proto의 Object로 가서 조회해옴.
-- instance.(__proto__).constructor ===  instance.(__proto__).(__proto__).constructor
-- 만약 constructor프로퍼티에 직접 Person을 넣으면 디폴트 값으로 [[Enumerable]]이 true로 들어가서 찐 constructor와 달라짐.
-- 그래서 defineProperty로 Enumerable을 false로 직접 설정해야 같아진다..
+(1) Person.prototype에는 원래 Person을 가리키는 constructor가 존재했으나 
+
+(2) 새로운 객체로 덮어씌움으로써 constructor 프로퍼티가 없어짐
+
+(3) friend.constructor는 **`friend` -> `Person.prototype` -> `Object.prototype`** 순서로 찾음
+- friend.(\__proto__).constructor === friend.(\__proto__).(\__proto__).constructor
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+
+(4) false가 아닌 true려면 아래와 같이 직접 삽입
+
 ```javascript
+Person.prototype.constructor = Person;
+```
+단, 자동 생성되는 constructor는 프로퍼티 속성 중 **Configurable, Enumerable** 속성이 `false`이므로
+Object.defineProperty로 속성을 직접 수정해야한다.
+```javascript
+function Person(){
+}
 Object.getOwnPropertyDescriptor(Person, 'prototype')
 // {value: {…}, writable: true, enumerable: false, configurable: false}
 ```
@@ -289,7 +300,7 @@ alert(person2.friends);    //"Shelby,Court,Van"
 alert(person1.friends === person2.friends);  //true
 ```
 
-4. 생성자 패턴과 프로토타입 패턴의 조합
+### 2.4. 생성자 패턴과 프로토타입 패턴의 조합
 - 생성자 패턴으로 인스턴스 프로퍼티 정의
 - 프로토타입 패턴으로 메서드와 공유 프로퍼티 정의
 - 가장 널리 쓰이는 패턴
@@ -319,7 +330,7 @@ alert(person1.friends === person2.friends);  //false
 alert(person1.sayName === person2.sayName);  //true
 ```
 
-5. 동적 프로토타입 패턴
+### 2.5. 동적 프로토타입 패턴
 - 모든 정보를 생성자 내부에 캡슐화
 - 프로토타입이 필요한 경우에도 생성자 내부에서 프로토타입을 초기화
 ```javascript
@@ -337,7 +348,7 @@ function Person(name, age, job){
     }
 }
 ```
-6. 기생(parasitic) 생성자 패턴
+### 2.6. 기생(parasitic) 생성자 패턴
 - 다른 객체를 생성하고 반환하는 동작을 래퍼 생성자로 감싸는 패턴
 - new 연산자로 함수를 생성자로 호출한다는 점을 제외하곤 팩토리 패턴과 동일
 ```javascript
@@ -361,7 +372,7 @@ function SpecialArray(){
 var colors = new SpecialArray("red", "blue", "green");
 alert(colors.toPipedString()); //"red|blue|green"
 ```
-7. 방탄(durable) 생성자 패턴
+### 2.7. 방탄(durable) 생성자 패턴
 - 방탄 객체 : 공용 프로퍼티가 없고 메서드가 this를 참조하지 않는 객체
 - new 연산자로 함수를 호출하지 않음
 ```javascript
@@ -376,6 +387,149 @@ var friend = Person('Nicholas');
 friend.sayName(); // 'Nicholas'
 ```
 
+
+## 3. 상속
+prototype을 상속한다 => prototype은 \__proto__ 으로 바라보는 객체
+### 3.1. 프로토타입 체인
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+```javascript
+function SuperType(){
+    this.superProperty = true;
+}
+
+SuperType.prototype.getSuperValue = function(){
+    return this.superProperty;
+};
+
+function SubType(){
+    this.subproperty = false;
+}
+
+//inherit from SuperType
+SubType.prototype = new SuperType();
+
+SubType.prototype.getSubValue = function (){
+    return this.subproperty;
+};
+
+var instance = new SubType();
+alert(instance.getSuperValue());   //true
+
+alert(instance instanceof Object);      //true
+alert(instance instanceof SuperType);   //true
+alert(instance instanceof SubType);     //true
+
+alert(Object.prototype.isPrototypeOf(instance));    //true
+alert(SuperType.prototype.isPrototypeOf(instance)); //true
+alert(SubType.prototype.isPrototypeOf(instance));   //true
+```
+> - SuperType 생성자에 매개변수를 전달할 수 없다.
+> - instance로 SuperType의 superProperty를 수정하면 SubType으로 새로 생성하는 인스턴스의 superProperty값도 변경된다.
+
+### 3.2. 생성자 훔치기 (constructor stealing)
+- 위장 객체 (object masquearading) 또는 전통적 상속 (classical inheritance)
+- 하위 타입 생성자 안에서 상위 타입 생성자를 호출
+``` javascript
+function SuperType(name){
+    this.name = name;
+}
+
+function SubType(){  
+    //inherit from SuperType passing in an argument
+    SuperType.call(this, "Nicholas");
+    
+    //instance property
+    this.age = 29;
+}
+
+var instance = new SubType();
+alert(instance.name);    //"Nicholas";
+alert(instance.age);     //29
+alert(instance instanceof SuperType); // false (1)
+alert(instance instanceof SubType); // true
+```
+이 경우 (1)과 같이 instance는 SuperType의 prototype에 접근할 수 없다는 단점이 있음
+
+### 3.3. 조합 상속
+3.1 과 3.2를 합친 것으로 프로토타입 체인을 통해 프로퍼티와 메서드를 상속하고, 생성자 훔치기로 인스턴스 프로퍼티를 상속한다.
+> 가장 많이 쓰이는 상속패턴이라고 함
+``` javascript 
+function SuperType(name){
+    this.name = name;
+    this.colors = ["red", "blue", "green"];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+};
+
+function SubType(name, age){  
+    SuperType.call(this, name);
+    
+    this.age = age;
+}
+
+SubType.prototype = new SuperType();
+
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+};
+
+var instance1 = new SubType("Nicholas", 29);
+instance1.colors.push("black");
+alert(instance1.colors);  //"red,blue,green,black"
+instance1.sayName();      //"Nicholas";
+instance1.sayAge();       //29
+
+
+var instance2 = new SubType("Greg", 27);
+alert(instance2.colors);  //"red,blue,green"
+instance2.sayName();      //"Greg";
+instance2.sayAge();       //27
+```
+### 3.4. 프로토타입 상속
+인자로 넘긴 객체를 prototype에 할당해 \__proto__로 접근할 수 있도록 하여 상속을 구현
+``` javascript
+function object(o){
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+
+var person = {
+    name: "Nicholas",
+    friends: ["Shelby", "Court", "Van"]
+};
+
+var anotherPerson = object(person);
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
+
+var yetAnotherPerson = object(person);
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
+
+alert(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
+```
+
+ES5에선 이 개념을 수용하여 Object.create() 메서드를 추가
+> [Object.create](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+```javascript
+var person = {
+    name: "Nicholas",
+    friends: ["Shelby", "Court", "Van"]
+};
+
+var anotherPerson = Object.create(person, {
+    name: {
+        value: "Greg"
+    }
+});
+
+alert(anotherPerson.name);  //"Greg"
+```
+### 3.5. 기생 상속
+### 3.6. 기생 조합 상속
 
 
 
