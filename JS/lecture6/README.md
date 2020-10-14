@@ -128,7 +128,7 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
  - instanceof 연산자와 constructor 프로퍼티를 활용하여 객체의 타입을 확인할 수 있다
 #### new 연산자의 동작
 > new Foo(...)이 실행되는 경우
-> 1. [Foo.prototype](#prototype 프로퍼티)을 상속하는 새로운 객체 생성
+> 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
 > 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo이 호출
 > 3. 생성한 객체를 리턴
 > 생성된 객체는 Foo.prototype을 가리키는 \__proto__ ([[Prototype]])을 가진다. 
@@ -179,11 +179,11 @@ function sayName(){
 ### 2.3. 프로토타입 패턴
 - 모든 함수는 prototype 프로퍼티를 가지며, prototype 프로퍼티는 함수를 생성자로 호출할 때 생성되는 인스턴스가 가져야 할 프로퍼티와 메서드를 가지고 있다.
 - prototype 프로퍼티의 프로퍼티와 메서드는 생성자 함수를 통해 생성된 모든 인스턴스가 공유한다.
-> [new 연산자의 동작 참고](#new 연산자의 동작)
+> [new 연산자의 동작 참고](#new-연산자의-동작)
 #### prototype 프로퍼티
 > 함수가 생성될 때 같이 생성된다.
 > 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
-> ![Alt text](prototype.jpg)
+> ![Alt text](prototype.JPG)
 ``` javascript 
 function Person(){
 }
