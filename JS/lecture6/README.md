@@ -30,6 +30,150 @@
 > 어떤 객체를 원형으로 삼고 이를 복제(참조)함으로써 상속과 비슷한 효과를 얻을 수 있는 언어
 
 ---
+## 3. 상속
+prototype을 상속한다 => prototype은 \__proto__ 으로 바라보는 객체
+### 3.1. 프로토타입 체인
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+```javascript
+function SuperType(){
+    this.superProperty = true;
+}
+
+SuperType.prototype.getSuperValue = function(){
+    return this.superProperty;
+};
+
+function SubType(){
+    this.subproperty = false;
+}
+
+//inherit from SuperType
+SubType.prototype = new SuperType();
+
+SubType.prototype.getSubValue = function (){
+    return this.subproperty;
+};
+
+var instance = new SubType();
+alert(instance.getSuperValue());   //true
+
+alert(instance instanceof Object);      //true
+alert(instance instanceof SuperType);   //true
+alert(instance instanceof SubType);     //true
+
+alert(Object.prototype.isPrototypeOf(instance));    //true
+alert(SuperType.prototype.isPrototypeOf(instance)); //true
+alert(SubType.prototype.isPrototypeOf(instance));   //true
+```
+> 위와 같은 코드로는 SuperType 생성자에 매개변수를 전달할 수 없으며 
+> instance로 SuperType의 superProperty를 수정하면 SubType으로 새로 생성하는 인스턴스의 superProperty값도 변경됨
+
+### 3.2. 생성자 훔치기 (constructor stealing)
+- 위장 객체 (object masquearading)
+- 전통적 상속 (classical inheritance)
+- 하위 타입 생성자 안에서 상위 타입 생성자를 호출
+``` javascript
+function SuperType(name){
+    this.name = name;
+}
+
+function SubType(){  
+    //inherit from SuperType passing in an argument
+    SuperType.call(this, "Nicholas");
+    
+    //instance property
+    this.age = 29;
+}
+
+var instance = new SubType();
+alert(instance.name);    //"Nicholas";
+alert(instance.age);     //29
+alert(instance instanceof SuperType); // false (1)
+alert(instance instanceof SubType); // true
+```
+이 경우 (1)과 같이 instance는 SuperType의 prototype에 접근할 수 없다는 단점이 있음
+
+### 3.3. 조합 상속
+3.1 과 3.2를 합친 것으로 프로토타입 체인을 통해 프로퍼티와 메서드를 상속하고, 생성자 훔치기로 인스턴스 프로퍼티를 상속한다.
+> 가장 많이 쓰이는 상속패턴이라고 함
+``` javascript 
+function SuperType(name){
+    this.name = name;
+    this.colors = ["red", "blue", "green"];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+};
+
+function SubType(name, age){  
+    SuperType.call(this, name);
+    
+    this.age = age;
+}
+
+SubType.prototype = new SuperType();
+
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+};
+
+var instance1 = new SubType("Nicholas", 29);
+instance1.colors.push("black");
+alert(instance1.colors);  //"red,blue,green,black"
+instance1.sayName();      //"Nicholas";
+instance1.sayAge();       //29
+
+
+var instance2 = new SubType("Greg", 27);
+alert(instance2.colors);  //"red,blue,green"
+instance2.sayName();      //"Greg";
+instance2.sayAge();       //27
+```
+### 3.4. 프로토타입 상속
+인자로 넘긴 객체를 prototype에 할당해 \__proto__로 접근할 수 있도록 하여 상속을 구현
+``` javascript
+function object(o){
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+
+var person = {
+    name: "Nicholas",
+    friends: ["Shelby", "Court", "Van"]
+};
+
+var anotherPerson = object(person);
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
+
+var yetAnotherPerson = object(person);
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
+
+alert(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
+```
+
+ES5에선 이 개념을 수용하여 Object.create() 메서드를 추가
+> [Object.create](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+```javascript
+var person = {
+    name: "Nicholas",
+    friends: ["Shelby", "Court", "Van"]
+};
+
+var anotherPerson = Object.create(person, {
+    name: {
+        value: "Greg"
+    }
+});
+
+alert(anotherPerson.name);  //"Greg"
+```
+### 3.5. 기생 상속
+### 3.6. 기생 조합 상속
+
 
 ## 1. 객체에 대한 이해
 
