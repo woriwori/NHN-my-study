@@ -25,9 +25,9 @@
 ---
 
 ### 객체 
-ECMA-262에서 객체는 원시값이나 객체, 함수를 포함하는 프로퍼티들의 순서 없는 컬렉션
+> ECMA-262에서 객체는 원시값이나 객체, 함수를 포함하는 프로퍼티들의 순서 없는 컬렉션
 ### 프로토타입 기반 언어 
-어떤 객체를 원형으로 삼고 이를 복제(참조)함으로써 상속과 비슷한 효과를 얻을 수 있는 언어
+> 어떤 객체를 원형으로 삼고 이를 복제(참조)함으로써 상속과 비슷한 효과를 얻을 수 있는 언어
 
 ---
 
@@ -49,8 +49,6 @@ ECMA-262에서 객체는 원시값이나 객체, 함수를 포함하는 프로�
       -  Set(default: undefined) : 프로퍼티 바꿀 떄 호출할 함수
       
 1.2. 프로퍼티 정의
-  - Object.defineProperty (mdn 링크 달기)
-  - Object.defineProperties (mdn 링크 달기)
   ``` javascript
  /* 데이터 프로퍼티 - Object.defineProperty 사용 */
 var person = {};
@@ -94,7 +92,7 @@ alert(book.edition);   //2
   ```
   --> 프로퍼티의 값을 바꿧을 때 해당 프로퍼티 뿐만이 아니라 다른 프로퍼티에도 부수적인 절차가 필요한 경우에 사용
   
-  3. 프로퍼티 속성 읽기
+1.3. 프로퍼티 속성 읽기
   - Object.getOwnPropertyDescriptor (mdn 링크 달기)
   ``` javascript
 var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
@@ -103,9 +101,9 @@ alert(descriptor.configurable);   //false
 alert(typeof descriptor.get);     //"undefined"
   ```
   
-  # 객체의 생성
+  ## 2. 객체의 생성
   
-  1. 팩토리 패턴
+  2.1. 팩토리 패턴
   - 객체를 만드는 데 필요한 정보를 매개변수로 받아 객체를 생성하여 return
   - 생성한 객체가 어떤 타입인지 알 수 없다는 문제가 존재
   ``` javascript
@@ -122,7 +120,7 @@ function createPerson(name, age, job){
 var person1 = createPerson('Nicholas', 29, 'Software Engineer');
   ```
   
-  2. 생성자 패턴
+  2.2. 생성자 패턴
  - 팩토리 패턴과 다르게 명시적으로 객체를 생성하지 않으며 프로퍼티와 메서드는 this 객체에 직접적으로 할당
  - 생성자 함수는 대문자로 시작
  - instanceof 연산자와 constructor 프로퍼티를 활용하여 객체의 타입 확인이 용이
