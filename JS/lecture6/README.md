@@ -125,13 +125,14 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
   
  ### 2.2. 생성자 패턴
  - 팩토리 패턴과 다르게 명시적으로 객체를 생성하지 않으며 프로퍼티와 메서드는 this 객체에 직접적으로 할당
- - instanceof 연산자와 constructor 프로퍼티를 활용하여 객체의 타입을 확인할 수 있다
+ - `instanceof 연산자`와 `constructor 프로퍼티`를 활용하여 객체의 타입을 확인할 수 있다
 #### new 연산자의 동작
 > new Foo(...)이 실행되는 경우
 > 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
 > 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo이 호출
 > 3. 생성한 객체를 리턴
-> 생성된 객체는 Foo.prototype을 가리키는 \__proto__ ([[Prototype]])을 가진다. 
+> 생성된 객체는 Foo.prototype을 가리키는 **\__proto__** 을 가진다. 
+> (예전엔 \__proto__ 가 [[Prototype]]이었음)
   ``` javascript
 function Person(name, age, job){ // 생성자 패턴에서 함수명은 대문자로 시작
     this.name = name;
@@ -179,9 +180,9 @@ function sayName(){
 ### 2.3. 프로토타입 패턴
 - 모든 함수는 prototype 프로퍼티를 가지며, prototype 프로퍼티는 함수를 생성자로 호출할 때 생성되는 인스턴스가 가져야 할 프로퍼티와 메서드를 가지고 있다.
 - prototype 프로퍼티의 프로퍼티와 메서드는 생성자 함수를 통해 생성된 모든 인스턴스가 공유한다.
-> [new 연산자의 동작 참고](#new-연산자의-동작)
+- [new 연산자의 동작 참고](#new-연산자의-동작)
 #### prototype 프로퍼티
-> 함수가 생성될 때 같이 생성된다.
+> 함수가 생성될 때 같이 생성된다.  
 > 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
 > ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
 ``` javascript 
@@ -225,14 +226,17 @@ alert(friend.constructor == Person);  //false (4)
 ```
 
 (1) Person.prototype에는 원래 Person을 가리키는 constructor가 존재했으나 
+
 (2) 새로운 객체로 덮어씌움으로써 constructor 프로퍼티가 없어짐
-(3) friend.constructor는 friend -> Person.prototype -> Object.prototype 순서로 찾음
-- friend.(__proto__).constructor === friend.(__proto__).(__proto__).constructor
+
+(3) friend.constructor는 **friend -> Person.prototype -> Object.prototype** 순서로 찾음
+- friend.(\__proto__).constructor === friend.(\__proto__).(\__proto__).constructor
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
 (4) false가 아닌 true려면 아래와 같이 직접 삽입
 ```javascript
 Person.prototype.constructor = Person;
 ```
-단, 자동 생성되는 constructor는 프로퍼티 속성 중 Configurable, Enumerable 속성이 false이므로
+단, 자동 생성되는 constructor는 프로퍼티 속성 중 **Configurable, Enumerable** 속성이 `false`이므로
 Object.defineProperty로 속성을 직접 수정해야한다.
 ```javascript
 function Person(){
