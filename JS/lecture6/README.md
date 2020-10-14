@@ -33,7 +33,7 @@
 
 ## 1. 객체에 대한 이해
 
-1.1. 프로퍼티의 타입
+### 1.1. 프로퍼티의 타입
 
     1. 데이터 프로퍼티
       -  Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
@@ -48,9 +48,10 @@
       -  Get(default: undefined) : 프로퍼티 읽을 떄 호출할 함수
       -  Set(default: undefined) : 프로퍼티 바꿀 떄 호출할 함수
       
-1.2. 프로퍼티 정의
+### 1.2. 프로퍼티 정의
+> [Object.defineProperty](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
   ``` javascript
- /* 데이터 프로퍼티 - Object.defineProperty 사용 */
+ /* 데이터 프로퍼티 */
 var person = {};
 Object.defineProperty(person, "name", {
     configurable: false,
@@ -60,8 +61,10 @@ Object.defineProperty(person, "name", {
 alert(person.name); // Nicholas
 delete person.name; // strict mode에서는 에러 발생
 alert(person.name); // Nicholas
-
-/* 접근자 프로퍼티 - Object.defineProperties 사용 */
+```
+> [Object.defineProperties](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)
+``` javascript
+/* 접근자 프로퍼티 */
 var book = {};
 
 Object.defineProperties(book, {
@@ -92,8 +95,8 @@ alert(book.edition);   //2
   ```
   --> 프로퍼티의 값을 바꿧을 때 해당 프로퍼티 뿐만이 아니라 다른 프로퍼티에도 부수적인 절차가 필요한 경우에 사용
   
-1.3. 프로퍼티 속성 읽기
-  - Object.getOwnPropertyDescriptor (mdn 링크 달기)
+### 1.3. 프로퍼티 속성 읽기
+> [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
   ``` javascript
 var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
 alert(descriptor.value);          //2004
@@ -103,9 +106,8 @@ alert(typeof descriptor.get);     //"undefined"
   
   ## 2. 객체의 생성
   
-  2.1. 팩토리 패턴
-  - 객체를 만드는 데 필요한 정보를 매개변수로 받아 객체를 생성하여 return
-  - 생성한 객체가 어떤 타입인지 알 수 없다는 문제가 존재
+  ### 2.1. 팩토리 패턴
+  객체를 만드는 데 필요한 정보를 매개변수로 받아 객체를 생성하여 return한다. 생성한 객체가 어떤 타입인지 알 수 없다는 문제가 있다.
   ``` javascript
 function createPerson(name, age, job){
     var o = new Object();
