@@ -2,11 +2,11 @@
 
 ## Contents
 
-1. 객체에 대한 이해
+1. [객체에 대한 이해](#객체에-대한-이해)
     - 프로퍼티 타입
     - 다중 프로퍼티 정의
     - 프로퍼티 속성 읽기
-2. 객체 생성
+2. [객체 생성](#객체-생성)
     - 팩토리 패턴
     - 생성자 패턴
     - 프로토타입 패턴
@@ -14,7 +14,7 @@
     - 동적 프로토타입 패턴
     - 기생 생성자 패턴
     - 방탄 생성자 패턴
-3. 상속
+3. [상속](#상속)
     - 프로토타입 체인
     - 생성자 훔치기
     - 조합 상속
@@ -389,7 +389,7 @@ friend.sayName(); // 'Nicholas'
 
 
 ## 3. 상속
-prototype을 상속한다 => prototype은 \__proto__ 으로 바라보는 객체
+> 객체가 prototype을 상속한다 => 객체의 \__proto__가 prototype을 가리키게 한다.
 ### 3.1. 프로토타입 체인
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.JPG?raw=true)
 ```javascript
