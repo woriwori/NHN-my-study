@@ -107,7 +107,8 @@ alert(typeof descriptor.get);     //"undefined"
   ## 2. 객체의 생성
   
   ### 2.1. 팩토리 패턴
-  객체를 만드는 데 필요한 정보를 매개변수로 받아 객체를 생성하여 return한다. 생성한 객체가 어떤 타입인지 알 수 없다는 문제가 있다.
+  - 객체를 만드는 데 필요한 정보를 매개변수로 받아 객체를 생성하여 return
+  - 생성한 객체가 어떤 타입인지 알 수 없다는 단점이 존재
   ``` javascript
 function createPerson(name, age, job){
     var o = new Object();
@@ -122,12 +123,17 @@ function createPerson(name, age, job){
 var person1 = createPerson('Nicholas', 29, 'Software Engineer');
   ```
   
-  2.2. 생성자 패턴
+ ### 2.2. 생성자 패턴
  - 팩토리 패턴과 다르게 명시적으로 객체를 생성하지 않으며 프로퍼티와 메서드는 this 객체에 직접적으로 할당
- - 생성자 함수는 대문자로 시작
- - instanceof 연산자와 constructor 프로퍼티를 활용하여 객체의 타입 확인이 용이
+ - instanceof 연산자와 constructor 프로퍼티를 활용하여 객체의 타입을 확인할 수 있다
+#### new 연산자의 동작
+> new Foo(...)이 실행되는 경우
+> 1. [Foo.prototype](#prototype 프로퍼티)을 상속하는 새로운 객체 생성
+> 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo이 호출
+> 3. 생성한 객체를 리턴
+> 생성된 객체는 Foo.prototype을 가리키는 \__proto__ ([[Prototype]])을 가진다. 
   ``` javascript
-function Person(name, age, job){
+function Person(name, age, job){ // 생성자 패턴에서 함수명은 대문자로 시작
     this.name = name;
     this.age = age;
     this.job = job;
@@ -135,23 +141,22 @@ function Person(name, age, job){
         alert(this.name);
     }
 }
-// 생성자로 사용
+// 1. 생성자로 사용
 var person = new Person('Nicholas', 29, 'Software Engineer');
 person.sayName(); 
 
-// 함수로 호출
+// 2. 함수로 호출
+// Person.prototype을 상속 받지 않는다.
 Person('Greg', 27, 'Doctor');
 window.sayName(); // Person내에서 가리키는 this가 window가 되는거 같음.. (??)
 
-// 다른 객체의 스코프에서 호출
+// 3. 다른 객체의 스코프에서 호출
+// Person.prototype을 상속 받지 않는다.
 var o = new Object();
 Person.call(o, 'Kristen', 24, 'Nurse');
 o.sayName();
   ```
-  - new 연산자의 동작 원리
-    - ???
-    - 위의 셋은 결과는 같지만, __proto__값이 다르다. 
-  - 단점은 인스턴스를 생성할 때마다 함수 인스턴스가 생성되는 점
+단, 인스턴스를 생성할 때마다 함수 인스턴스가 생성된다는 단점이 존재
 ``` javascript
 this.sayName = function(){
     alert(this.name);
@@ -159,8 +164,9 @@ this.sayName = function(){
 // 위의 코드는 아래와 동일
 this.sayName = new Function('alert(this.name)'); 
 ```
+
+위 단점은 아래와 같이 함수를 분리하는 방식으로 해결할 수 있다.
 ``` javascript 
-// 위의 코드를 우회하여 해결
 function Person(name, age, job){
     ...
     this.sayName = sayName;
@@ -170,9 +176,14 @@ function sayName(){
     alert(this.name);
 }
 ```
-3. 프로토타입 패턴
+### 2.3. 프로토타입 패턴
 - 모든 함수는 prototype 프로퍼티를 가지며, prototype 프로퍼티는 함수를 생성자로 호출할 때 생성되는 인스턴스가 가져야 할 프로퍼티와 메서드를 가지고 있다.
 - prototype 프로퍼티의 프로퍼티와 메서드는 생성자 함수를 통해 생성된 모든 인스턴스가 공유한다.
+> [new 연산자의 동작 참고](#new 연산자의 동작)
+#### prototype 프로퍼티
+> 함수가 생성될 때 같이 생성된다.
+> 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
+> ![Alt text](prototype.jpg)
 ``` javascript 
 function Person(){
 }
@@ -192,7 +203,7 @@ person2.sayName();   //"Nicholas"
 
 alert(person1.sayName == person2.sayName);  //true
 ```
-* 프로토타입의 동작 원리 ==> 링크
+
 - 또 다른 방법
 ```javascript
 function Person(){
