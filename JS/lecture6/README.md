@@ -232,7 +232,9 @@ alert(friend.constructor == Person);  //false (4)
 (3) friend.constructor는 **`friend` -> `Person.prototype` -> `Object.prototype`** 순서로 찾음
 - friend.(\__proto__).constructor === friend.(\__proto__).(\__proto__).constructor
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+
 (4) false가 아닌 true려면 아래와 같이 직접 삽입
+
 ```javascript
 Person.prototype.constructor = Person;
 ```
