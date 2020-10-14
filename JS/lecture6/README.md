@@ -183,7 +183,7 @@ function sayName(){
 #### prototype 프로퍼티
 > 함수가 생성될 때 같이 생성된다.
 > 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
-> ![Alt text](/prototype.JPG)
+> ![Alt text](JS/lecture6/prototype1.JPG)
 ``` javascript 
 function Person(){
 }
