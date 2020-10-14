@@ -206,9 +206,9 @@ alert(person1.sayName == person2.sayName);  //true
 
 - 또 다른 방법
 ```javascript
-function Person(){
+function Person(){ // (1)
 }
-Person.prototype = {
+Person.prototype = { // (2)
     name : "Nicholas",
     age : 29,
     job: "Software Engineer",
@@ -220,18 +220,23 @@ var friend = new Person();
 
 alert(friend instanceof Object);  //true
 alert(friend instanceof Person);  //true
-alert(friend.constructor == Person);  //false
-alert(friend.constructor == Object);  //true
+alert(friend.constructor == Object);  //true (3)
+alert(friend.constructor == Person);  //false (4)
 ```
 
-- constructor 프로퍼티는 함수가 생성될 때 자동으로 생기는 prototype 프로퍼티에 들어있는데,
-constructor 프로퍼티가 들어있는 prototype 프로퍼티를 덮어씌워버렸기 때문에 없는거임..
-- 이렇게 한 경우 instanceof를 하면 Person의 인스턴스가 맞다고하지만,
-constructor프로퍼티는 __proto의 Object로 가서 조회해옴.
-- instance.(__proto__).constructor ===  instance.(__proto__).(__proto__).constructor
-- 만약 constructor프로퍼티에 직접 Person을 넣으면 디폴트 값으로 [[Enumerable]]이 true로 들어가서 찐 constructor와 달라짐.
-- 그래서 defineProperty로 Enumerable을 false로 직접 설정해야 같아진다..
+(1) Person.prototype에는 원래 Person을 가리키는 constructor가 존재했으나 
+(2) 새로운 객체로 덮어씌움으로써 constructor 프로퍼티가 없어짐
+(3) friend.constructor는 friend -> Person.prototype -> Object.prototype 순서로 찾음
+- friend.(__proto__).constructor === friend.(__proto__).(__proto__).constructor
+(4) false가 아닌 true려면 아래와 같이 직접 삽입
 ```javascript
+Person.prototype.constructor = Person;
+```
+단, 자동 생성되는 constructor는 프로퍼티 속성 중 Configurable, Enumerable 속성이 false이므로
+Object.defineProperty로 속성을 직접 수정해야한다.
+```javascript
+function Person(){
+}
 Object.getOwnPropertyDescriptor(Person, 'prototype')
 // {value: {…}, writable: true, enumerable: false, configurable: false}
 ```
@@ -289,7 +294,7 @@ alert(person2.friends);    //"Shelby,Court,Van"
 alert(person1.friends === person2.friends);  //true
 ```
 
-4. 생성자 패턴과 프로토타입 패턴의 조합
+### 2.4. 생성자 패턴과 프로토타입 패턴의 조합
 - 생성자 패턴으로 인스턴스 프로퍼티 정의
 - 프로토타입 패턴으로 메서드와 공유 프로퍼티 정의
 - 가장 널리 쓰이는 패턴
@@ -319,7 +324,7 @@ alert(person1.friends === person2.friends);  //false
 alert(person1.sayName === person2.sayName);  //true
 ```
 
-5. 동적 프로토타입 패턴
+### 2.5. 동적 프로토타입 패턴
 - 모든 정보를 생성자 내부에 캡슐화
 - 프로토타입이 필요한 경우에도 생성자 내부에서 프로토타입을 초기화
 ```javascript
@@ -337,7 +342,7 @@ function Person(name, age, job){
     }
 }
 ```
-6. 기생(parasitic) 생성자 패턴
+### 2.6. 기생(parasitic) 생성자 패턴
 - 다른 객체를 생성하고 반환하는 동작을 래퍼 생성자로 감싸는 패턴
 - new 연산자로 함수를 생성자로 호출한다는 점을 제외하곤 팩토리 패턴과 동일
 ```javascript
@@ -361,7 +366,7 @@ function SpecialArray(){
 var colors = new SpecialArray("red", "blue", "green");
 alert(colors.toPipedString()); //"red|blue|green"
 ```
-7. 방탄(durable) 생성자 패턴
+### 2.7. 방탄(durable) 생성자 패턴
 - 방탄 객체 : 공용 프로퍼티가 없고 메서드가 this를 참조하지 않는 객체
 - new 연산자로 함수를 호출하지 않음
 ```javascript
