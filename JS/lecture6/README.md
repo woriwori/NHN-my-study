@@ -539,7 +539,78 @@ var anotherPerson = Object.create(person, {
 alert(anotherPerson.name);  //"Greg"
 ```
 ### 3.5. 기생 상속
+객체 생성의 기생 생성자나 팩토리 패턴과 비슷하다.  
+상속을 담당할 함수를 만들고 어떤 식으로든 객체를 확장해서 반환한다. 
+```javascript
+function createAnother(original){
+    var clone = object(original);
+    clone.sayHi = function(){
+        alert('Hi!');
+    };
+    return clone;
+}
+var person = {
+    name: 'Nicholas',
+    friends: ['Shelby', 'Court', 'Van']
+};
+var anotherPerson = createAnother(person);
+anotherPerson.sayHi(); // Hi!
+```
 ### 3.6. 기생 조합 상속
+[조합 상속](#3.3.-조합-상속)은 상위 타입 생성자가 항상 두번 호출된다는 비효율적인 부분이 있다.  
+상위 타입의 생성자를 new 연산자로 호출하는 부분을 기생 상속 방법을 사용하여 개선한다.
+```javascript
+function object(o){
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+
+function inheritPrototype(subType, superType){
+    var prototype = object(superType.prototype);   // (1) 
+    prototype.constructor = subType;               // (2) 
+    subType.prototype = prototype;                 // (3) 
+}
+                        
+function SuperType(name){
+    this.name = name;
+    this.colors = ["red", "blue", "green"];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+};
+
+function SubType(name, age){  
+    SuperType.call(this, name);
+    
+    this.age = age;
+}
+
+inheritPrototype(SubType, SuperType);
+
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+};
+
+var instance1 = new SubType("Nicholas", 29); // (4)
+instance1.colors.push("black");
+alert(instance1.colors);  //"red,blue,green,black"
+instance1.sayName();      //"Nicholas";
+instance1.sayAge();       //29
 
 
+var instance2 = new SubType("Greg", 27);
+alert(instance2.colors);  //"red,blue,green"
+instance2.sayName();      //"Greg";
+instance2.sayAge();       //27
+```
+
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.png?raw=true)
+
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance2.png?raw=true)
+
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance3.png?raw=true)
+
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance4.png?raw=true)
 
