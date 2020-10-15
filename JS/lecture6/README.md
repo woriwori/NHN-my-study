@@ -411,8 +411,8 @@ friend.sayName(); // 'Nicholas'
 > 모든 객체들이 메소드와 속성들을 상속 받기 위한 템플릿으로써 프로토타입 객체(prototype object)를 가진다는 의미입니다. <br>
 > 프로토타입 객체도 또 다시 상위 프로토타입 객체로부터 메소드와 속성을 상속 받을 수도 있고 그 상위 프로토타입 객체도 마찬가지입니다. <br>
 > 이를 프로토타입 체인(prototype chain)이라 부르며 다른 객체에 정의된 메소드와 속성을 한 객체에서 사용할 수 있도록 하는 근간입니다.
+> 즉, 상속되는 속성과 메소드들은 생성된 인스턴스의 생성자의 prototype이라는 속성에 정의되어 있습니다.
 
-정확히 말하자면 상속되는 속성과 메소드들은 각 객체가 아니라 객체의 생성자의 prototype이라는 속성에 정의되어 있습니다.
 ### 3.1. 프로토타입 체인
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance.png?raw=true)
 ```javascript
