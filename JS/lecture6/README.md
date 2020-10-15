@@ -32,17 +32,17 @@
 ### 1.1. 프로퍼티의 타입
 
     1. 데이터 프로퍼티
-      -  Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
-      -  Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반홚함을 나타냄
-      -  Writable(default: true) : 프로퍼티의 값을 바꿀 수 있음을 나타냄
-      -  Value(default: undefined) : 프로퍼티의 실제 데이터 값을 포함함
+      - Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
+      - Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반환함을 나타냄
+      - Writable(default: true) : 프로퍼티의 값을 바꿀 수 있음을 나타냄
+      - Value(default: undefined) : 프로퍼티의 실제 데이터 값을 포함함
       
     2. 접근자 프로퍼티
       - 명시적으로 정할 수 없으며 Object 메서드를 사용해서 만들 수 있음
       - Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
-      -  Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반홚함을 나타냄
-      -  Get(default: undefined) : 프로퍼티 읽을 떄 호출할 함수
-      -  Set(default: undefined) : 프로퍼티 바꿀 떄 호출할 함수
+      - Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반환함을 나타냄
+      - Get(default: undefined) : 프로퍼티 읽을 때 호출할 함수
+      - Set(default: undefined) : 프로퍼티 바꿀 때 호출할 함수
       
 ### 1.2. 프로퍼티 정의
 > [Object.defineProperty](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
@@ -59,6 +59,8 @@ delete person.name; // strict mode에서는 에러 발생
 alert(person.name); // Nicholas
 ```
 > [Object.defineProperties](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)
+>
+> get,set을 설정하면 writable, value 속성이 없어지며, 반대로 writable, value 속성을 설정하면 get, set 속성이 없어진다.
 ``` javascript
 /* 접근자 프로퍼티 */
 var book = {};
@@ -100,11 +102,12 @@ alert(descriptor.configurable);   //false
 alert(typeof descriptor.get);     //"undefined"
   ```
   
-  ## 2. 객체의 생성
-  
+  ## 2. 객체 생성
+  같은 인터페이스를 가진 객체를 여러 개 만들기 위해 여러가지 패턴을 사용
   ### 2.1. 팩토리 패턴
   - 객체를 만드는 데 필요한 정보를 매개변수로 받아 객체를 생성하여 return
   - 생성한 객체가 어떤 타입인지 알 수 없다는 단점이 존재
+  > 어떤 타입인지 알기 위해 생성된 객체의 `constructor 속성` 또는 `instanceof 연산자`를 사용할 수 있다.
   ``` javascript
 function createPerson(name, age, job){
     var o = new Object();
@@ -121,14 +124,14 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
   
  ### 2.2. 생성자 패턴
  - 팩토리 패턴과 다르게 명시적으로 객체를 생성하지 않으며 프로퍼티와 메서드는 this 객체에 직접적으로 할당
- - `instanceof 연산자`와 `constructor 프로퍼티`를 활용하여 객체의 타입을 확인할 수 있다
 #### new 연산자의 동작
-> new Foo(...)이 실행되는 경우
+> new Foo(...)가 실행되는 경우
 > 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
-> 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo이 호출
+> 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo 호출
 > 3. 생성한 객체를 리턴
-> 생성된 객체는 Foo.prototype을 가리키는 **\__proto__** 을 가진다. 
-> (예전엔 \__proto__ 가 [[Prototype]]이었음)
+>
+> 생성된 객체는 [Foo.prototype](#prototype-프로퍼티)을 가리키는 **\__proto__** 을 가진다. <br>
+> (예전엔 \__proto__ 가 [[Prototype]]이었음 - [참고](https://2ality.com/2015/09/proto-es6.html))
   ``` javascript
 function Person(name, age, job){ // 생성자 패턴에서 함수명은 대문자로 시작
     this.name = name;
@@ -145,7 +148,7 @@ person.sayName();
 // 2. 함수로 호출
 // Person.prototype을 상속 받지 않는다.
 Person('Greg', 27, 'Doctor');
-window.sayName(); // Person내에서 가리키는 this가 window가 되는거 같음.. (??)
+window.sayName(); 
 
 // 3. 다른 객체의 스코프에서 호출
 // Person.prototype을 상속 받지 않는다.
@@ -174,13 +177,14 @@ function sayName(){
 }
 ```
 ### 2.3. 프로토타입 패턴
-- 모든 함수는 prototype 프로퍼티를 가지며, prototype 프로퍼티는 함수를 생성자로 호출할 때 생성되는 인스턴스가 가져야 할 프로퍼티와 메서드를 가지고 있다.
+- 모든 함수는 prototype 프로퍼티를 가진다.
+- prototype 프로퍼티는 함수를 생성자로 호출할 때 생성되는 인스턴스가 가져야 할 프로퍼티와 메서드를 가지고 있다.
 - prototype 프로퍼티의 프로퍼티와 메서드는 생성자 함수를 통해 생성된 모든 인스턴스가 공유한다.
 - [new 연산자의 동작 참고](#new-연산자의-동작)
 #### prototype 프로퍼티
 > 함수가 생성될 때 같이 생성된다.  
 > 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
-> ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.JPG?raw=true)
+> ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.png?raw=true)
 
 #### 자바스크립트는 프로토타입 기반 언어 
 > 자바스크립트는 어떤 객체를 원형으로 삼고 이를 복제(참조)함으로써 상속과 비슷한 효과를 얻을 수 있는 언어다.
@@ -231,7 +235,7 @@ alert(friend.constructor == Person);  //false (4)
 
 (3) friend.constructor는 **`friend` -> `Person.prototype` -> `Object.prototype`** 순서로 찾음
 - friend.(\__proto__).constructor === friend.(\__proto__).(\__proto__).constructor
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype2.JPG?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype2.png?raw=true)
 
 (4) false가 아닌 true려면 아래와 같이 직접 삽입
 
@@ -239,7 +243,7 @@ alert(friend.constructor == Person);  //false (4)
 Person.prototype.constructor = Person;
 ```
 단, 자동 생성되는 constructor는 프로퍼티 속성 중 **Configurable, Enumerable** 속성이 `false`이므로
-Object.defineProperty로 속성을 직접 수정해야한다.
+[Object.defineProperty](#프로퍼티-정의)로 속성을 직접 수정해야한다.
 ```javascript
 function Person(){
 }
@@ -271,15 +275,16 @@ Person.prototype = {
 };
 
 friend.sayName();   //error
- ```
+ ``` 
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype2.png?raw=true)
+
 - 프로토타입의 문제점
   - 생성자 초기화 매개변수를 프로토타입에 전달할 수 없음
   - 인스턴스 값을 조작하면 다른 인스턴스에 영향을 줄 수 있음
 ```javascript
 function Person(){
 }
-
-Person.prototype = {
+var otherPrototype = {
     constructor: Person,
     name : "Nicholas",
     age : 29,
@@ -289,6 +294,7 @@ Person.prototype = {
         alert(this.name);
     }
 };
+Person.prototype = otherPrototype;
 
 var person1 = new Person();
 var person2 = new Person();
@@ -391,7 +397,7 @@ friend.sayName(); // 'Nicholas'
 ## 3. 상속
 > 객체가 A객체를 상속한다 => 객체의 \__proto__가 A 객체를 가리키게 한다.
 ### 3.1. 프로토타입 체인
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.JPG?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.png?raw=true)
 ```javascript
 function SuperType(){
     this.superProperty = true;
