@@ -605,12 +605,14 @@ alert(instance2.colors);  //"red,blue,green"
 instance2.sayName();      //"Greg";
 instance2.sayAge();       //27
 ```
-
+(1) 객체를 생성한다.
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.png?raw=true)
-
+(2) 생성한 객체의 constructor 가 subtype을 가리키도록 한다.
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance2.png?raw=true)
-
+(3) subtype의 prototype이 생성한 객체를 가리키도록 한다.
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance3.png?raw=true)
-
+(4) subtype으로 인스턴스를 생성한다.
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance4.png?raw=true)
 
+## 참조
+- [코어 자바스크립트](https://book.naver.com/bookdb/book_detail.nhn?bid=15433261)
