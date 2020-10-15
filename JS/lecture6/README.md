@@ -522,7 +522,9 @@ yetAnotherPerson.friends.push("Barbie");
 alert(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
 ```
 > 단, anotherPerson의 constructor가 없음
+
 <br>
+
 ES5에선 이 개념을 수용하여 Object.create() 메서드를 추가
 > [Object.create](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
 ```javascript
