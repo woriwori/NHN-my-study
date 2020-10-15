@@ -571,15 +571,16 @@ o1.(__proto__).prototype.constructor === test // 4) ??
 o1.constructor ===  5) ??
 o1.(__proto__).(__proto__).prototype === 6) ??
 ```
+<br><br>
 > 정답
 >
-> 1) function test(){}
-> 2) ~ 4) true
-> 5) <br>
+> 1\) function test(){} <br>
+> 2\) ~ 4) true <br>
+> 5\) <br>
 > o1.constructor === Function <br>
 > === o1.(__proto__).(__proto__).constructor <br>
 > === test.constructor <br>
-> 6) <br>
+> 6\) <br>
 > undefined
 
 ### 3.5. 기생 상속
