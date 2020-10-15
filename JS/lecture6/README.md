@@ -91,7 +91,6 @@ Object.defineProperties(book, {
 book.year = 2005;
 alert(book.edition);   //2
   ```
-  --> 프로퍼티의 값을 바꿧을 때 해당 프로퍼티 뿐만이 아니라 다른 프로퍼티에도 부수적인 절차가 필요한 경우에 사용
   
 ### 1.3. 프로퍼티 속성 읽기
 > [Object.getOwnPropertyDescriptor](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
