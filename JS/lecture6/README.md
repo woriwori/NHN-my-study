@@ -158,6 +158,7 @@ window.sayName();
 
 // 3. 다른 객체의 스코프에서 호출
 // Person.prototype을 상속 받지 않는다.
+// 아래 코드의 스코프는 전역 스코프라는 전제하에 실행됨
 var o = new Object();
 Person.call(o, 'Kristen', 24, 'Nurse');
 o.sayName();
