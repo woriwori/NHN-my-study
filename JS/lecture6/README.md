@@ -123,10 +123,14 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
   
  ### 2.2. 생성자 패턴
  - 팩토리 패턴과 다르게 명시적으로 객체를 생성하지 않으며 프로퍼티와 메서드는 this 객체에 직접적으로 할당
+
 #### new 연산자의 동작
 > new Foo(...)가 실행되는 경우
-> 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
-> 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo 호출
+> 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성 <br>
+> var o = new Object();
+> o.\__proto__ = Foo.prototype; <br>
+> 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo 호출 <br>
+> Foo.call(o);
 > 3. 생성한 객체를 리턴
 #### new 연산자로 생성된 객체
 > 생성된 객체는 [Foo.prototype](#prototype-프로퍼티)을 가리키는 **\__proto__** 을 가진다. <br>
@@ -654,5 +658,13 @@ instance2.sayAge();       //27
 (4) subtype으로 인스턴스를 생성한다.
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance4.png?raw=true)
 
+## 읽어보면 좋을것들
+- 프로토타입 기반의 상속과 클래스 기반의 상속 비교
+  - [classical-inheritance-vs-protoypal-inheritance-in-javascript](http://stackoverflow.com/questions/19633762/classical-inheritance-vs-protoypal-inheritance-in-javascript)
+  - [why-prototypal-inheritance-matters](http://aaditmshah.github.io/why-prototypal-inheritance-matters/#toc_6)
+  - [benefits-of-prototypal-inheritance-over-classical](http://stackoverflow.com/questions/2800964/benefits-of-prototypal-inheritance-over-classical)
+  - [classical-vs-prototypal-inheritance](http://stackoverflow.com/questions/1450582/classical-vs-prototypal-inheritance)
+- [상속과 프로토타입에 대한 mdn 문서](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain)
+  
 ## 참조
 - [코어 자바스크립트](https://book.naver.com/bookdb/book_detail.nhn?bid=15433261)
