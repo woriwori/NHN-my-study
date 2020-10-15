@@ -400,6 +400,15 @@ friend.sayName(); // 'Nicholas'
 
 ## 3. 상속
 > 객체가 A객체를 상속한다 => 객체의 \__proto__가 A 객체를 가리키게 한다.
+
+### 상속이란??
+> mdn
+> JavaScript는 흔히 프로토타입 기반 언어(prototype-based language)라 불립니다. <br>
+> 모든 객체들이 메소드와 속성들을 상속 받기 위한 템플릿으로써 프로토타입 객체(prototype object)를 가진다는 의미입니다. <br>
+> 프로토타입 객체도 또 다시 상위 프로토타입 객체로부터 메소드와 속성을 상속 받을 수도 있고 그 상위 프로토타입 객체도 마찬가지입니다. <br>
+> 이를 프로토타입 체인(prototype chain)이라 부르며 다른 객체에 정의된 메소드와 속성을 한 객체에서 사용할 수 있도록 하는 근간입니다.
+
+정확히 말하자면 상속되는 속성과 메소드들은 각 객체가 아니라 객체의 생성자의 prototype이라는 속성에 정의되어 있습니다.
 ### 3.1. 프로토타입 체인
 ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance.png?raw=true)
 ```javascript
@@ -521,12 +530,13 @@ yetAnotherPerson.friends.push("Barbie");
 
 alert(person.friends);   //"Shelby,Court,Van,Rob,Barbie"
 ```
-> 단, anotherPerson의 constructor가 없음
 
 <br>
 
-ES5에선 이 개념을 수용하여 Object.create() 메서드를 추가
+ES5에 Object.create 메서드로 추가됨
 > [Object.create](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+> 
+> 첫번째 인자로 넘긴 객체가 새로 생성되는 객체로 프로토타입(prototype 프로퍼티가 아니라 \__proto__가 가리키는 객체)이 된다.
 ```javascript
 var person = {
     name: "Nicholas",
@@ -541,6 +551,33 @@ var anotherPerson = Object.create(person, {
 
 alert(anotherPerson.name);  //"Greg"
 ```
+퀴즈...
+```javascript
+function test(){}
+var o1 = Object.create(test);
+var o2 = Object.create(test.prototype);
+var o3 = new test();
+
+o2.prototype === o3.prototype
+o2.constructor === o3.constructor === ?? // 1)
+
+o1.(__proto__) === test // 2) ??
+o1.(__proto__).prototype === test.prototype // 3) ??
+o1.(__proto__).prototype.constructor === test // 4) ??
+o1.constructor ===  5) ??
+o1.(__proto__).(__proto__).prototype === 6) ??
+```
+> 정답
+>
+> 1) function test(){}
+> 2) ~ 4) true
+> 5) <br>
+> o1.constructor === Function <br>
+> === o1.(__proto__).(__proto__).constructor <br>
+> === test.constructor <br>
+> 6) <br>
+> undefined
+
 ### 3.5. 기생 상속
 객체 생성의 기생 생성자나 팩토리 패턴과 비슷하다.  
 상속을 담당할 함수를 만들고 어떤 식으로든 객체를 확장해서 반환한다. 
