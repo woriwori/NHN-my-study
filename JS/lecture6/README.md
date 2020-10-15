@@ -32,17 +32,17 @@
 ### 1.1. 프로퍼티의 타입
 
     1. 데이터 프로퍼티
-      -  Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
-      -  Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반환함을 나타냄
-      -  Writable(default: true) : 프로퍼티의 값을 바꿀 수 있음을 나타냄
-      -  Value(default: undefined) : 프로퍼티의 실제 데이터 값을 포함함
+      - Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
+      - Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반환함을 나타냄
+      - Writable(default: true) : 프로퍼티의 값을 바꿀 수 있음을 나타냄
+      - Value(default: undefined) : 프로퍼티의 실제 데이터 값을 포함함
       
     2. 접근자 프로퍼티
       - 명시적으로 정할 수 없으며 Object 메서드를 사용해서 만들 수 있음
       - Configurable(default: true) : 해당 프로퍼티가 delete를 통해 삭제하거나 접근자 프로퍼티로 변환할 수 있음을 나타냄
-      -  Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반환함을 나타냄
-      -  Get(default: undefined) : 프로퍼티 읽을 때 호출할 함수
-      -  Set(default: undefined) : 프로퍼티 바꿀 때 호출할 함수
+      - Enumerable(default: true) : for-in 루프에서 해당 프로퍼티를 반환함을 나타냄
+      - Get(default: undefined) : 프로퍼티 읽을 때 호출할 함수
+      - Set(default: undefined) : 프로퍼티 바꿀 때 호출할 함수
       
 ### 1.2. 프로퍼티 정의
 > [Object.defineProperty](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
@@ -59,6 +59,7 @@ delete person.name; // strict mode에서는 에러 발생
 alert(person.name); // Nicholas
 ```
 > [Object.defineProperties](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)
+>
 > get,set을 설정하면 writable, value 속성이 없어지며, 반대로 writable, value 속성을 설정하면 get, set 속성이 없어진다.
 ``` javascript
 /* 접근자 프로퍼티 */
@@ -127,7 +128,8 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
 > new Foo(...)가 실행되는 경우
 > 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
 > 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo 호출
-> 3. 생성한 객체를 리턴 <br>
+> 3. 생성한 객체를 리턴
+>
 > 생성된 객체는 [Foo.prototype](#prototype-프로퍼티)을 가리키는 **\__proto__** 을 가진다. <br>
 > (예전엔 \__proto__ 가 [[Prototype]]이었음 - [참고](https://2ality.com/2015/09/proto-es6.html))
   ``` javascript
@@ -395,7 +397,7 @@ friend.sayName(); // 'Nicholas'
 ## 3. 상속
 > 객체가 A객체를 상속한다 => 객체의 \__proto__가 A 객체를 가리키게 한다.
 ### 3.1. 프로토타입 체인
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.JPG?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.png?raw=true)
 ```javascript
 function SuperType(){
     this.superProperty = true;
