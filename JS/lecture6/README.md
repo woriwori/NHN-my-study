@@ -129,11 +129,11 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
 > 1. [Foo.prototype](#prototype-프로퍼티)을 상속하는 새로운 객체 생성
 > 2. 생성자 함수에 전달한 인자와 새로운 객체에 바인드된 this와 함께 생성자 함수 Foo 호출
 > 3. 생성한 객체를 리턴
->
+#### new 연산자로 생성된 객체
 > 생성된 객체는 [Foo.prototype](#prototype-프로퍼티)을 가리키는 **\__proto__** 을 가진다. <br>
 > (예전엔 \__proto__ 가 [[Prototype]]이었음 - [참고](https://2ality.com/2015/09/proto-es6.html))
 >
-> **\__proto__** 는 생략할 수 있다.
+> **\__proto__** 는 생략할 수 있다. <br>
 > instance.propertyA === instance.\__proto__.propertyA === Foo.prototype.propertyA
   ``` javascript
 function Person(name, age, job){ // 생성자 패턴에서 함수명은 대문자로 시작
@@ -268,7 +268,8 @@ friend.sayHi();   //"hi"
  function Person(){
  }
 var friend = new Person();
-Person.prototype = {
+
+var otherPrototype = {
     constructor: Person,
     name : "Nicholas",
     age : 29,
@@ -277,6 +278,7 @@ Person.prototype = {
         alert(this.name);
     }
 };
+Person.prototype = otherPrototype;
 
 friend.sayName();   //error
  ``` 
@@ -288,7 +290,7 @@ friend.sayName();   //error
 ```javascript
 function Person(){
 }
-var otherPrototype = {
+Person.prototype = {
     constructor: Person,
     name : "Nicholas",
     age : 29,
@@ -298,7 +300,6 @@ var otherPrototype = {
         alert(this.name);
     }
 };
-Person.prototype = otherPrototype;
 
 var person1 = new Person();
 var person2 = new Person();
