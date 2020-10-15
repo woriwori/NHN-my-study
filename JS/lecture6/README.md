@@ -132,6 +132,9 @@ var person1 = createPerson('Nicholas', 29, 'Software Engineer');
 >
 > 생성된 객체는 [Foo.prototype](#prototype-프로퍼티)을 가리키는 **\__proto__** 을 가진다. <br>
 > (예전엔 \__proto__ 가 [[Prototype]]이었음 - [참고](https://2ality.com/2015/09/proto-es6.html))
+>
+> **\__proto__** 는 생략할 수 있다.
+> instance.propertyA === instance.\__proto__.propertyA === Foo.prototype.propertyA
   ``` javascript
 function Person(name, age, job){ // 생성자 패턴에서 함수명은 대문자로 시작
     this.name = name;
@@ -184,6 +187,7 @@ function sayName(){
 #### prototype 프로퍼티
 > 함수가 생성될 때 같이 생성된다.  
 > 자동으로 constructor 프로퍼티를 가지며 소속된 함수를 값으로 가리킨다.
+>
 > ![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype1.png?raw=true)
 
 #### 자바스크립트는 프로토타입 기반 언어 
@@ -231,7 +235,7 @@ alert(friend.constructor == Person);  //false (4)
 
 (1) Person.prototype에는 원래 Person을 가리키는 constructor가 존재했으나 
 
-(2) 새로운 객체로 덮어씌움으로써 constructor 프로퍼티가 없어짐
+(2) 새로운 객체로 덮어씌움으로써 constructor 프로퍼티가 없어졌고 자동의로 생성되었던 Person과 Person.prototype의 관계가 끊어짐
 
 (3) friend.constructor는 **`friend` -> `Person.prototype` -> `Object.prototype`** 순서로 찾음
 - friend.(\__proto__).constructor === friend.(\__proto__).(\__proto__).constructor
@@ -276,7 +280,7 @@ Person.prototype = {
 
 friend.sayName();   //error
  ``` 
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype2.png?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/prototype3.png?raw=true)
 
 - 프로토타입의 문제점
   - 생성자 초기화 매개변수를 프로토타입에 전달할 수 없음
@@ -397,7 +401,7 @@ friend.sayName(); // 'Nicholas'
 ## 3. 상속
 > 객체가 A객체를 상속한다 => 객체의 \__proto__가 A 객체를 가리키게 한다.
 ### 3.1. 프로토타입 체인
-![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance1.png?raw=true)
+![Alt text](https://github.com/woriwori/study-toast/blob/main/JS/lecture6/inheritance.png?raw=true)
 ```javascript
 function SuperType(){
     this.superProperty = true;
