@@ -3,7 +3,9 @@
 ## DOM (Document Object Model)
 동적으로 문서의 내용, 구조, 스타일에 접근하고 변경하는 수단
 > DOM Level
+> 
 > Level 0 : js에서 접근할 수 있는 dom이 제한적 
+> 
 > Level 1 : 
 
 ## 1. 이벤트 흐름
@@ -45,10 +47,12 @@
 - 캡처링 단계
 - 타겟 단계
 - 버블링 단계
+- 
 [예제 코드](https://jsfiddle.net/leewonhee/bu17ozkw/3/)
 
-### 2. 이벤트 핸들러
+## 2. 이벤트 핸들러
 > 이벤트 : 사용자 또는 브라우저가 취하는 특정 동작
+> 
 > 이벤트 핸들러(리스너) : 이벤트에 응답하여 호출되는 함수
 
 ### 2.1 HTML 이벤트 핸들러
@@ -69,7 +73,7 @@
 ```
 <br>
 
-이벤트 핸들러 함수는 with를 통해 확장된 스코프 체인을 통해 this, document, event 객체에 접근할 수 있다.
+이벤트 핸들러 함수는 with를 통해 확장된 스코프 체인을 통해 this, document 객체에 접근할 수 있다.
 ``` javascript
 function (){
     with(document){
@@ -118,22 +122,22 @@ function (){
     </body>
 </html>
 <script>
-	var myBody = document.getElementById('myBody');
-	var myForm = document.getElementById('myForm');
-	var myDiv = document.getElementById('myDiv');
-	var myP = document.getElementById('myP');
+    var myBody = document.getElementById('myBody');
+    var myForm = document.getElementById('myForm');
+    var myDiv = document.getElementById('myDiv');
+    var myP = document.getElementById('myP');
     myBody.onclick = function (){
-  	    console.log('myBody');
-	};
+        console.log('myBody');
+    };
     myForm.onclick = function (){
-  	    console.log('myForm');
-	};
+        console.log('myForm');
+    };
     myDiv.onclick = function (){
-  	    console.log('myDiv');
-	};
+        console.log('myDiv');
+    };
     myP.onclick = function (){
-  	    console.log('myP');
-	};
+        console.log('myP');
+    };
 </script>
 ```
 ```javascript
@@ -166,7 +170,7 @@ btn.removeEventListener('click', function(){
 - 매개변수
   - 이벤트 이름
   - 이벤트 핸들러 함수
-- 이벤트 핸들러 여러개 추가시 추가한 순서의 반대로 동작
+- 이벤트 핸들러를 여러개 추가한 경우 추가한 순서의 반대로 동작
 - this는 window 전역 객체
 ```javascript
 var btn = document.getElementById('myBtn');
@@ -175,7 +179,7 @@ btn.attachEvent('onclick', function(){
 })
 ```
 
-### 3. event 객체
+## 3. event 객체
 이벤트 정보를 가지고 있는 객체
 
 ### 3.1 DOM event 객체
@@ -272,7 +276,7 @@ btn.attachEvent('onclick', function(){
 </script>
 ```
 | 프로퍼티/메서드 | 타입 | 읽기/쓰기 | 설명 |
-|---|:---:|:---:|---:|
+|----|:----:|:-----:|----|
 | cancelBubble | 불리언 | 읽기/쓰기 | 기본적으로 false이지만 true를 지정하여 이벤트 버블링을 취소할 수 있다. DOM 표준의 stopPropagation()메서드와 동일. |
 | returnValue | 불리언 | 읽기/쓰기 | 기본적으로 true지만 false를 지정하여 기본 동작을 취소할 수 있다. DOM 표준의 preventDefault() 메서드와 동일. |
 | srcElement | 요소 | 읽기 전용 | 이벤트 타깃. DOM 표준의 target 프로퍼티와 같다.  |
