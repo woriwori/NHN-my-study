@@ -44,11 +44,10 @@
 ```
 
 ### 1.3 이벤트 흐름
-- 캡처링 단계
-- 타겟 단계
-- 버블링 단계
-- 
-[예제 코드](https://jsfiddle.net/leewonhee/bu17ozkw/3/)
+- 캡처링 -> 타겟 -> 버블링
+
+
+> [예제 코드](https://jsfiddle.net/leewonhee/bu17ozkw/3/)
 
 ## 2. 이벤트 핸들러
 > 이벤트 : 사용자 또는 브라우저가 취하는 특정 동작
@@ -61,7 +60,6 @@
 ```html
 <script type="text/javascript"> 
     function onclickHandler(t){
-        console.log('event 객체 : ', event);
         console.log('this : ', this);
         console.log('t : ', t);
         console.log('document : ', document);
