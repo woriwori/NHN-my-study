@@ -232,6 +232,22 @@ btn.attachEvent('onclick', function(){
 </script>
 ```
 
+### stopImmediatePropagation()
+이벤트 흐름을 중지시키고, 다른 이벤트 핸들러 호출을 막는다.
+```html
+<input id="myBtn" type="button" value="클릭"/> 
+<script type="text/javascript"> 
+    var btn = document.getElementById('myBtn');
+    btn.addEventListener('click',function(event){
+        alert('Clicked!');
+        event.stopImmediatePropagation();
+    })
+    btn.addEventListener('click',function(event){
+        alert('Clicked!2');
+    })
+</script>
+```
+
 ### 3.1.4 eventPhase
 이벤트 흐름 중 현재 진행 중인 단계를 의미
 - 1: 캡처링 / 2: 타깃 / 3: 버블링
@@ -282,3 +298,11 @@ btn.attachEvent('onclick', function(){
 | srcElement | 요소 | 읽기 전용 | 이벤트 타깃. DOM 표준의 target 프로퍼티와 같다.  |
 | type | 문자열 | 읽기 전용 | 이벤트 타입 |
   
+
+## 참고
+- https://developer.mozilla.org/ko/docs/Web/API/Event
+- https://ko.javascript.info/bubbling-and-capturing
+- https://stackoverflow.com/questions/4616694/what-is-event-bubbling-and-capturing
+- https://stackoverflow.com/questions/17665489/using-this-inside-an-event-handler
+- https://caniuse.com/
+- https://www.w3.org/TR/DOM-Level-3-Events/#event-type-load
