@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Event Bubbling Example</title>
+        <title></title>
     </head>
     <body>
       <div id="div1">
@@ -17,42 +17,42 @@
       var useCapture = true;
       
       // div1 포커스 생겼을 때
-      div1.addEventListener('DOMFocusIn', function(e){
-        console.log('div1 ---- DOMFocusIn!!')
+      div1.addEventListener('focus', function(e){
+        console.log('div1 ---- focus!!') // myInput으로 부터 버블링 되지 않음
+        //e.stopPropagation();
       }, useCapture)
       div1.addEventListener('focusin', function(e){
         console.log('div1 ---- focusin!!')
       }, useCapture)
-      div1.addEventListener('focus', function(e){
-        console.log('div1 ---- focus!!')
-        e.stopPropagation();
+      div1.addEventListener('DOMFocusIn', function(e){
+        console.log('div1 ---- DOMFocusIn!!')
       }, useCapture)
       
       // div1 포커스 잃었을 때
       div1.addEventListener('blur', function(e){
-        console.log('div1 ---- blur!!')
-      })
-      div1.addEventListener('DOMFocusOut', function(e){
-        console.log('div1 ---- DOMFocusOut!!')
+        console.log('div1 ---- blur!!') // myInput으로 부터 버블링 되지 않음
       })
       div1.addEventListener('focusout', function(e){
         console.log('div1 ---- focusout!!')
+      })
+      div1.addEventListener('DOMFocusOut', function(e){
+        console.log('div1 ---- DOMFocusOut!!')
       })
       
       
       // myInput에 포커스 생겼을 때
       myInput.addEventListener('DOMFocusIn', function(e){
         console.log('DOMFocusIn!!');
-        // e.stopPropagation();
+        //e.stopPropagation();
       })
       myInput.addEventListener('focusin', function(e){
         console.log('focusin!!')
-        // e.stopPropagation();
+        //e.stopPropagation();
       })
       myInput.addEventListener('focus', function(e){
         console.log('focus!!')
         // focus는 버블링 안됨
-        // e.stopPropagation();
+        //e.stopPropagation();
       })
       
       // myInput에 포커스 잃었을 때

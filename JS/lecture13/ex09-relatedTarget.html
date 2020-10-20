@@ -18,28 +18,20 @@
       var green = document.getElementById("green");
       
       var useCapture = false;
-      var eventType = 'mouseout';
       
-      red.addEventListener(eventType, function(e){
-        console.log('red')
+      green.addEventListener('mouseover', function(e){
+        console.log('(mouseover) green related target : ', e.relatedTarget);        
       }, useCapture)
-      yellow.addEventListener(eventType, function(e){
-        console.log('yellow')
+      green.addEventListener('mouseout', function(e){
+        console.log('(mouseout) green related target : ', e.relatedTarget);       
       }, useCapture)
-      blue.addEventListener(eventType, function(e){
-        console.log('blue')
+
+      red.addEventListener('mouseover', function(e){
+        console.log('(mouseover) red related target : ', e.relatedTarget);        
       }, useCapture)
-      green.addEventListener(eventType, function(e){
-        console.log('green')
+      red.addEventListener('mouseout', function(e){
+        console.log('(mouseout) red related target : ', e.relatedTarget);       
       }, useCapture)
-      
-      // mouseenter, mouseleave : bubbling 안됨 / capturing은 됨
-      // mousemove
-      // mouseout
-      //- blue>green 이동시 blue, red 핸들러가 불리는건 이벤트 버블링 때문. 
-      //  blue는 이벤트 발생한 타깃이고, red는 타깃에서 버블링된 상위 요소.
-      //  캡처링 설정하면 red blue 불림
-      // mouseover
-      // mouseup
+
     </script>
 </html>

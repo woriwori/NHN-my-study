@@ -1,0 +1,23 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <input id="myInput"/>
+        <input id="myButton" type="button" value="클릭"/>
+    </body>
+    <script>
+        var myInput = document.getElementById("myButton");
+        myInput.addEventListener('keypress', function (e){
+          console.log('---------------------------------')
+            console.log('keypress');
+            console.log(e);
+        })
+         myInput.addEventListener('textInput', function (e){
+          console.log('---------------------------------')
+            console.log('textInput');
+            console.log(e);
+            console.log('data : ', e.data);
+        })
+
+    </script>
+</html>

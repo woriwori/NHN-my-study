@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id="red" style="background-color: red;width:100px;height:200px;"></div>
+    </body>
+    <script>
+        var red = document.getElementById("red");
+        var useCapture = true;
+
+        red.addEventListener('mousewheel', function (e){
+            console.log('red wheelDelta : ', e.wheelDelta)
+        }, useCapture)
+        document.addEventListener('mousewheel', function (e){
+            console.log('document wheelDelta : ', e.wheelDelta)
+        }, useCapture)
+    </script>
+</html>

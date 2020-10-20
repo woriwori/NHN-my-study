@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <input id="myInput"/>
+    </body>
+    <script>
+        var myInput = document.getElementById("myInput");
+
+        myInput.addEventListener('textInput', function (e){
+          console.log('---------------------------------')
+            console.log('textInput');
+            console.log(e);
+            console.log('charCode : ', e.charCode);
+            console.log('code : ', e.code);
+            console.log('key : ', e.key);
+            console.log('keyCode : ', e.keyCode);
+            console.log('data : ', e.data);
+        })
+        myInput.addEventListener('keypress', function (e){
+          console.log('---------------------------------')
+            console.log('keypress');
+            console.log(e);
+            console.log('charCode : ', e.charCode);
+            console.log('code : ', e.code);
+            console.log('key : ', e.key);
+            console.log('keyCode : ', e.keyCode); // 입력한 character의 ASCII 코드
+            console.log('data : ', e.data);
+        })
+        myInput.addEventListener('keydown', function (e){
+          console.log('---------------------------------')
+            console.log('keydown');
+            console.log(e);
+            console.log('charCode : ', e.charCode);
+            console.log('code : ', e.code);
+            console.log('key : ', e.key);
+            console.log('keyCode : ', e.keyCode); // 입력한 키의 코드
+            console.log('data : ', e.data);
+        })
+        myInput.addEventListener('keyup', function (e){
+          console.log('---------------------------------')
+            console.log('keyup');
+            console.log(e);
+            console.log('charCode : ', e.charCode);
+            console.log('code : ', e.code);
+            console.log('key : ', e.key);
+            console.log('keyCode : ', e.keyCode); // 입력한 키의 코드
+            console.log('data : ', e.data);
+        })
+
+        // 아스키 코드 => http://computing.or.kr/wp-content/uploads/2015/04/ASCII-Table.png
+    </script>
+</html>

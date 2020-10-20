@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+      <div id="red" style="background-color: red;width:250px;height:250px;">
+        <div id="yellow" style="background-color: yellow;width:100px;height:100px;">
+        </div>
+        <div id="blue" style="background-color: blue;width:100px;height:100px;">
+          <div id="green" style="background-color: green;width:50px;height:50px;">
+          <div id="pink" style="background-color: pink;width:30px;height:30px;"></div>
+          </div>
+          <div id="orange" style="background-color: orange;width:30px;height:30px;"></div>
+        </div>
+      </div>
+    </body>
+    <script>
+      var red = document.getElementById("red");
+      var yellow = document.getElementById("yellow");
+      var blue = document.getElementById("blue");
+      var green = document.getElementById("green");
+      var orange = document.getElementById("orange");
+      var pink = document.getElementById("pink");
+      
+      var useCapture = false;
+      
+      // 삭제된 노드의 부모 노드
+      red.addEventListener('DOMSubtreeModified', function(){
+        console.log('red --- DOMSubtreeModified')
+      })
+      
+      // 삭제된 노드
+      blue.addEventListener('DOMNodeRemoved', function(e){
+        console.log('blue --- DOMNodeRemoved')
+        console.log('blue --- relatedNode : ', e.relatedNode) // red
+      })
+      
+      blue.addEventListener('DOMNodeRemovedFromDocument', function(){
+        console.log('blue --- DOMNodeRemovedFromDocument') // 호출 안됨
+      })
+      
+      // 삭제된 노드의 자식 노드들
+      green.addEventListener('DOMNodeRemovedFromDocument', function(){
+        console.log('green --- DOMNodeRemovedFromDocument')
+      })
+      orange.addEventListener('DOMNodeRemovedFromDocument', function(){
+        console.log('orange --- DOMNodeRemovedFromDocument')
+      })
+      
+      // 삭제된 노드의 자손 노드
+      pink.addEventListener('DOMNodeRemovedFromDocument', function(){
+        console.log('pink --- DOMNodeRemovedFromDocument')
+      })
+      
+      red.removeChild(blue)
+    </script>
+</html>

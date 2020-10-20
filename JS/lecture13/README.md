@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Event Bubbling Example</title>
+        <title></title>
     </head>
     <body>
         <div id="myDiv">Click Me</div>
@@ -30,7 +30,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Event Bubbling Example</title>
+        <title></title>
     </head>
     <body>
         <div id="myDiv">Click Me</div>
@@ -98,7 +98,7 @@ function (){
 ```html
 <html>
     <head>
-        <title>Event Bubbling Example</title>
+        <title></title>
     </head>
     <style>
         body * {
@@ -264,7 +264,7 @@ btn.attachEvent('onclick', function(){
 ```html
 <html>
     <head>
-        <title>Event Bubbling Example</title>
+        <title></title>
     </head>
     <body>
         <form>FORM

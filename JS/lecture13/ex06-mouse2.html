@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Event Bubbling Example</title>
+        <title></title>
     </head>
     <body>
       <div id="red" style="background-color: red;width:100px;height:200px;">
@@ -21,20 +21,16 @@
       }, useCapture)
       green.addEventListener('mousedown', function(e){
         console.log('green-mousedown')
-        e.preventDefault();
       }, useCapture)
       green.addEventListener('click', function(e){
         console.log('green-click')
       }, useCapture)
-      
+      green.addEventListener('dblclick', function(e){
+        console.log('green-dblclick')
+      }, useCapture)
+
+      // mousedown 또는 mouseup을 취소하는 방법을 모르겠음..
+      // 그냥 취소가 안되게 막아놓은걸까? .onmousedown=null로 할당해도 안되고..
+      // preventdefault도 안됨. 
     </script>
 </html>
-
-
-
-
-
-
-
-
-

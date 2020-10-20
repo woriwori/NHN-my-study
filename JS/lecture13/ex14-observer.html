@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+      <div id="red" style="background-color: red;width:250px;height:250px;">
+        <div id="yellow" style="background-color: yellow;width:100px;height:100px;">
+        </div>
+        <div id="blue" style="background-color: blue;width:100px;height:100px;">
+          <div id="green" style="background-color: green;width:50px;height:50px;">
+          <div id="pink" style="background-color: pink;width:30px;height:30px;"></div>
+          </div>
+          <div id="orange" style="background-color: orange;width:30px;height:30px;"></div>
+        </div>
+      </div>
+    </body>
+    <script>
+      var yellow = document.getElementById("yellow");
+      var pink = document.getElementById("pink");
+      
+      // 감시자 인스턴스 만들기
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          console.log(mutation);
+        });    
+      });
+
+      // 감시자의 설정:
+      var config = { attributes: true, childList: true, characterData: true };
+
+      // 감시자 옵션 포함, 대상 노드에 전달
+      observer.observe(yellow, config);
+
+      // 나중에, 감시를 중지 가능
+      // observer.disconnect();
+      
+      // yellow.appendChild(pink)
+      // yellow.classList.add('foo')
+      
+    </script>
+</html>
