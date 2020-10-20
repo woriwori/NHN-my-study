@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Event Bubbling Example</title>
+    </head>
+    <body>
+      <input type="text" id="myInput"/>
+      <input type="text" id="myAnotherInput"/>
+    </body>
+    <script>
+      var myInput = document.getElementById("myInput");
+      var myAnotherInput = document.getElementById("myAnotherInput");
+      
+      // myInput에 포커스 생겼을 때
+      myInput.addEventListener('DOMFocusIn', function(){
+        console.log('DOMFocusIn!!')
+      })
+      myInput.addEventListener('focusin', function(){
+        console.log('focusin!!')
+      })
+      myInput.addEventListener('focus', function(){
+        console.log('focus!!')
+      })
+      
+      // myInput에 포커스 잃었을 때
+      myInput.addEventListener('blur', function(){
+        console.log('blur!!')
+      })
+      myInput.addEventListener('DOMFocusOut', function(){
+        console.log('DOMFocusOut!!')
+      })
+      myInput.addEventListener('focusout', function(){
+        console.log('focusout!!')
+      })
+      
+      // myAnotherInput에 포커스 생겼을 때
+      myAnotherInput.addEventListener('DOMFocusIn', function(){
+        console.log('myAnotherInput : DOMFocusIn!!')
+      })
+      myAnotherInput.addEventListener('focusin', function(){
+        console.log('myAnotherInput : focusin!!')
+      })
+      myAnotherInput.addEventListener('focus', function(){
+        console.log('myAnotherInput : focus!!')
+      })
+    </script>
+</html>
+
+
+
+
+
+
+
+
+

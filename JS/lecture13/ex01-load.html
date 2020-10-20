@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Event Bubbling Example</title>
+    </head>
+    <script>
+      window.addEventListener("load", function(event) {
+        console.log('window addEventListener load handler');
+      });
+    </script>
+    <body onload="console.log('body loaded')">
+        <!-- <img id="myImg" 
+            src="event-properties.JPG" 
+            style="display: none;"
+            onload="console.log('img loaded')"/> -->
+    </body>
+    <script>
+        // var myImg = document.getElementById('myImg');
+        // myImg.addEventListener("load", function(event) {
+        //     console.log('myImg addEventListener load handler');
+        // });
+    </script>
+</html>
