@@ -2,11 +2,7 @@
 
 ## DOM (Document Object Model)
 동적으로 문서의 내용, 구조, 스타일에 접근하고 변경하는 수단
-> DOM Level
-> 
-> Level 0 : js에서 접근할 수 있는 dom이 제한적 
-> 
-> Level 1 : 
+> DOM Level은 Netscape에서 개발한 0부터 
 
 ## 1. 이벤트 흐름
 이벤트가 전달되는 순서
@@ -184,7 +180,23 @@ btn.attachEvent('onclick', function(){
 
 ### 3.1.1 프로퍼티/메서드
 
-![Alt text](./event-properties.JPG)
+| 프로퍼티/메서드 | 타입 | 읽기/쓰기 | 설명 | IE9 미만 미지원 |
+|---|:----:|:-----:|----|---|
+| bubbles | 불리언 | 읽기 전용 | 이벤트가 버블링 되는지 나타냄| |
+| cancelable | 불리언| 읽기 전용| 이벤트의 기본 동작을 취소할 수 있는지 나타냄 | |
+| currentTarget|요소 | 읽기 전용| 현재 이벤트를 처리중인 요소 | |
+| defaultPrevented|불리언 | 읽기 전용| true이면 preventDefault()가 호출된 상태|O |
+| detail| 정수| 읽기 전용| 이벤트와 관련된 추가 정보| ?|
+| eventPhase|정수 | 읽기 전용|이벤트 핸들러가 호출된 단계 (1: 캡처링/2: 타깃/3: 버블링) | O|
+|preventDefault | 함수| 읽기 전용|이벤트의 기본 행동을 취소 | O|
+| stopImmediatePropagation| 함수| 읽기 전용| 이벤트 캡처링 또는 이벤트 버블링을 모두 취소하며 다른 이벤트 핸들러의 호출을 막음| O|
+|stopPropagation |함수 | 읽기 전용| 이벤트 캡처링이나 이벤트 버블링을 모두 취소| O|
+| target| 요소 | 읽기 전용| 이벤트 타깃|O |
+|trusted | 불리언| 읽기 전용| 브라우저에서 생성한 이벤트인 경우 true, 개발자가 만든 자바스크립트 이벤트라면 false| ?|
+| type| 문자열| 읽기 전용|발생한 이벤트의 타입 |O|
+|view | AbstractView| 읽기 전용| 이벤트와 연결된 추상화된 뷰. 이벤트가 발생한 window 객체와 일치| ?|
+
+
 
 - this 객체는 항상 currentTarget 값과 일치
 - target에는 실제 타겟만 포함
@@ -215,6 +227,7 @@ btn.attachEvent('onclick', function(){
 
 ### 3.1.3 stopPropagation()
 이벤트 흐름 중지
+- 이벤트의 bubbles 속성이 true 인 경우에만 가능
 
 ```html
 <input id="myBtn" type="button" value="클릭"/> 
@@ -304,3 +317,5 @@ btn.attachEvent('onclick', function(){
 - https://stackoverflow.com/questions/17665489/using-this-inside-an-event-handler
 - https://caniuse.com/
 - https://www.w3.org/TR/DOM-Level-3-Events/#event-type-load
+- https://stackoverflow.com/questions/6629093/what-are-dom-levels
+- https://www.quirksmode.org/js/dom0.html#history
