@@ -2,7 +2,6 @@
 
 ## DOM (Document Object Model)
 동적으로 문서의 내용, 구조, 스타일에 접근하고 변경하는 수단
-> DOM Level은 Netscape에서 개발한 0부터 
 
 ## 1. 이벤트 흐름
 이벤트가 전달되는 순서
