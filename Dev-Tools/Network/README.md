@@ -11,6 +11,8 @@
 ![Alt text](./firefox.PNG)
 
 ## Safari
+![Alt text](./safari1.png)
+![Alt text](./safari2.png)
 
 ## IE 11
 - 한글로 탭 이름이 적혀있는게 의미 전달이 더 안됨 (ex. 머리글)

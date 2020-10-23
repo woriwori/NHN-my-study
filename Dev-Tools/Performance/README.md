@@ -7,14 +7,15 @@
 
 ## firefox
 
-![Alt text](./firefox.png)
-![Alt text](./firefox2.png)
-![Alt text](./firefox3.png)
+![Alt text](./firefox.PNG)
+![Alt text](./firefox2.PNG)
+![Alt text](./firefox3.PNG)
 
 ## Safari
+![Alt text](./safari.png)
 
 
 ## IE 11
 
-![Alt text](./ie11.png)
-![Alt text](./ie11-2.png)
+![Alt text](./ie11.PNG)
+![Alt text](./ie11-2.PNG)

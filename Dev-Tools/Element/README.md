@@ -5,18 +5,18 @@
 
 ## firefox
 
-![Alt text](./firefox-inspector1.png)
+![Alt text](./firefox-inspector1.PNG)
 - 그리드와 플렉스 박스를 보여주는 view가 존재
 
 
-![Alt text](./firefox-inspector2.png)
+![Alt text](./firefox-inspector2.PNG)
 - 글꼴을 확인하고 폰트나 line-height 등의 font css 속성을 GUI로 조절할 수 있다.
 - 폰트 css 속성을 수정하는게 그렇게 번거로운 일은 아니라서 별로 유용해보이지는 않음.. 
 
-![Alt text](./firefox-inspector3.png)
+![Alt text](./firefox-inspector3.PNG)
 - inline으로 수정한 내역을 보여준다. 
 
-![Alt text](./firefox-inspector4.png)
+![Alt text](./firefox-inspector4.PNG)
 - state에 따라 변경되는 css 를 보여준다. 
 - 별로 안 유용해 보임
 

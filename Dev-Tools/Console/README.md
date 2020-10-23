@@ -10,6 +10,8 @@
 ![Alt text](./firefox.PNG)
 
 ## Safari
+![Alt text](./safari.png)
+
 
 ## IE 11
 - 멀티라인 입력 지원 (크롬은 왜 안될까?)
