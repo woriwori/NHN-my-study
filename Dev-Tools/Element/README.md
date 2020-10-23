@@ -1,8 +1,9 @@
 # 요소 검사
 
-### chrome
+## chrome
+![Alt text](./chrome.PNG)
 
-### firefox
+## firefox
 
 ![Alt text](./firefox-inspector1.png)
 - 그리드와 플렉스 박스를 보여주는 view가 존재
@@ -20,7 +21,7 @@
 - 별로 안 유용해 보임
 
 
-### Safari
+## Safari
 ![Alt text](./safari-inspector1.png)
 
 - 노드 탭에서 속성을 쉽게 볼 수 있다.
@@ -38,7 +39,7 @@
 - (굳이 왜 필요한지 모를..)
 - 요소별 상세 정보를 오른쪽에서 확인할 수 있다.
 
-### IE 11
+## IE 11
 - 느리다
 - hover 와 visited state만 제공된다. 
 - [레이아웃]과 [계산됨] 이라는 탭으로 분리가 되어있어서 불편하다. 
@@ -48,7 +49,7 @@
 ![Alt text](./ie11-inspector1.PNG)
 ![Alt text](./ie11-inspector2.PNG)
 
-### MicroSoft Edge
+## MicroSoft Edge
 - 크롬 렌더링 엔진을 사용하기 때문에 개발자도구도 거의 동일하다.
   
 ![Alt text](./edge-inspector1.PNG)

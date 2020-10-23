@@ -1,16 +1,20 @@
-# 요소 검사
+# 성능
 
-### chrome
+## chrome
+- 기능은 많지만 진입장벽이 있다.
 
-### firefox
+![Alt text](./chrome.PNG)
+
+## firefox
 
 ![Alt text](./firefox.png)
+![Alt text](./firefox2.png)
+![Alt text](./firefox3.png)
 
-### Safari
+## Safari
 
 
-### IE 11
-- 프레임 별로 grouping 가능
+## IE 11
 
 ![Alt text](./ie11.png)
 ![Alt text](./ie11-2.png)
