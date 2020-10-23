@@ -10,7 +10,7 @@
 ![Alt text](./firefox.PNG)
 
 ## Safari
-![Alt text](./safari.png)
+![Alt text](./safari1.png)
 
 
 ## IE 11
