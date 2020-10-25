@@ -309,6 +309,83 @@ btn.attachEvent('onclick', function(){
 | type | 문자열 | 읽기 전용 | 이벤트 타입 |
   
 
+### HTML5 이벤트
+#### beforeunload 이벤트
+- 페이지 언로드 직전에 발생
+  
+  ``` javascript
+    window.onbeforeunload = function() {
+        return false;
+    };
+  ```
+
+#### DOMContentLoaded
+  - DOM 트리가 완전히 구성되는 즉시 발생
+  
+  ``` html 
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        alert("DOM이 준비되었습니다!");
+    });
+    </script>
+
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
+
+    <script>
+    alert("라이브러리 로딩이 끝나고 인라인 스크립트가 실행되었습니다.");
+    </script>
+  ```
+  
+#### hashchange
+  - URL 해시가 바뀔 때 발생
+  - event 객체에 oldURL, newURL 프로퍼티가 있음
+  
+  ``` javascript 
+    window.addEventListener('hashchange', (e) => {
+        console.log(e.oldURL);
+        console.log(e.newURL);
+        console.log(window.location);
+     }); 
+
+  ```
+
+  ### 이벤트 위임
+
+  - 이벤트 핸들러의 개수를 줄이는 방안
+  - 이벤트 버블링을 활용
+  
+  ``` javascript
+    table.onclick = function(event) {
+      let target = event.target;
+      if (target.tagName != 'TD') return;       
+      highlight(target); 
+
+      // let td = event.target.closest('td'); 
+      // if (!td) return;
+      // if (!table.contains(td)) return; 
+      // highlight(td);
+    };
+  ```
+
+
+  ### 커스텀 이벤트 시뮬레이션
+
+  ``` javascript
+  var myTarget = document.getElementById('myTarget');
+  var event = document.createEvent('Event');
+  // var event = new CustomEvent('build', { detail: { name: 'wonhee', value: myTarget.innerText } });
+  event.initEvent('build', true, true);
+  myTarget.addEventListener('build', function (e) {
+    console.log('event : ', e)
+    console.log('target : ', e.target)
+    console.log('detail : ', e.detail)
+  }, false);
+
+  myTarget.dispatchEvent(event);
+</html>
+  ```
+
+
 ## 참고
 - https://developer.mozilla.org/ko/docs/Web/API/Event
 - https://ko.javascript.info/bubbling-and-capturing

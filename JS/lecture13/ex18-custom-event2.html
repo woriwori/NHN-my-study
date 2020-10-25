@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+<body>
+  <h1 id="myTarget">Event 대상</h1>
+</body>
+<script>
+  var myTarget = document.getElementById('myTarget');
+  var event = document.createEvent('Event');
+  // var event = new CustomEvent('build', { detail: { name: 'wonhee', value: myTarget.innerText } });
+  event.initEvent('build', true, true);
+  myTarget.addEventListener('build', function (e) {
+    console.log('event : ', e)
+    console.log('target : ', e.target)
+    console.log('detail : ', e.detail)
+  }, false);
+
+  myTarget.dispatchEvent(event);
+</script>
+</html>

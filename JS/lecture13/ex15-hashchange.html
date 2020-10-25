@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <nav>
+            <a href="#page-1">Link 1</a>
+            <a href="#page-2">Link 2</a>
+        </nav>
+    </body>
+    <script>
+        window.addEventListener('hashchange', (e) => {
+            console.log(e.oldURL);
+            console.log(e.newURL);
+            console.log(window.location);
+        }); 
+    </script>
+</html>
+

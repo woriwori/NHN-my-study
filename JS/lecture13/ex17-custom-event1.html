@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Test</title>
+</head>
+<body>
+  <form>
+    <textarea></textarea>
+  </form>
+</body>
+<script>
+const form = document.querySelector('form');
+const textarea = document.querySelector('textarea');
+
+const eventAwesome = new CustomEvent('awesome', {
+  bubbles: true,
+  detail: { text: () => textarea.value }
+});
+
+form.addEventListener('awesome', e => console.log(e.detail.text()));
+
+textarea.addEventListener('input', e => e.target.dispatchEvent(eventAwesome));
+</script>
+</html>
