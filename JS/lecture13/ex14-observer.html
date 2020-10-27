@@ -21,21 +21,29 @@
       // 감시자 인스턴스 만들기
       var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-          console.log(mutation);
+          console.log('observer1');
+        });    
+      });
+      var observer2 = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          console.log('observer2');
         });    
       });
 
       // 감시자의 설정:
-      var config = { attributes: true, childList: true, characterData: true };
+      var config = { attributes: true, subtree: true, childList: true, characterData: true };
 
       // 감시자 옵션 포함, 대상 노드에 전달
       observer.observe(yellow, config);
-
-      // 나중에, 감시를 중지 가능
-      // observer.disconnect();
+      observer2.observe(yellow, config);
       
-      // yellow.appendChild(pink)
-      // yellow.classList.add('foo')
+      yellow.appendChild(pink)
+      yellow.classList.add('foo')
+      
+      observer.disconnect();
+      
+      console.log(observer.takeRecords())
+      //setTimeout(() => console.log(observer.takeRecords()), 0)
       
     </script>
 </html>

@@ -6,19 +6,46 @@
   <title>Test</title>
 </head>
 <body>
-  <h1 id="myTarget">Event 대상</h1>
+  <div>
+    <h1 id="myTarget">Event 대상</h1>
+    <input id="myInput" type="button" value="click"/>
+  </div>
 </body>
 <script>
+  var div = document.querySelector('div');
   var myTarget = document.getElementById('myTarget');
+  var myInput = document.getElementById('myInput');
+  
+  myInput.addEventListener('click', e => {
+    // var e = new MouseEvent("click", {
+    //   bubbles: true,
+    //   cancelable: true,
+    //   view: window
+    // });
+    // console.log('isTrusted : ', e.isTrusted)
+    console.log('나는 click한 input이다.')
+  })
+
+  // IE9 <=
   var event = document.createEvent('Event');
-  // var event = new CustomEvent('build', { detail: { name: 'wonhee', value: myTarget.innerText } });
   event.initEvent('build', true, true);
+  
+  // IE not supported
+  // var event = new CustomEvent('build', { bubbles: true, detail: { name: 'wonhee', value: myTarget.innerText } });
+
   myTarget.addEventListener('build', function (e) {
     console.log('event : ', e)
     console.log('target : ', e.target)
     console.log('detail : ', e.detail)
+    // console.log('isTrusted : ', e.isTrusted)
   }, false);
-
+  // fireEvent (IE8 >=) 
   myTarget.dispatchEvent(event);
+
+  div.addEventListener('build', function (e) {
+    console.log('나는 div다')
+  }, false);
+  div.dispatchEvent(event);
+
 </script>
 </html>

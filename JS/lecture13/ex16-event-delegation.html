@@ -130,13 +130,13 @@
 
     table.onclick = function(event) {
       let target = event.target;
-      if (target.tagName != 'TD') return;       
+      if (target.tagName !== 'TD') return;       
       highlight(target); 
 
-      let td = event.target.closest('td'); 
-      if (!td) return;
-      if (!table.contains(td)) return; 
-      highlight(td);
+      // let td = event.target.closest('td'); 
+      // if (!td) return;
+      // if (!table.contains(td)) return; 
+      // highlight(td);
     };
 
     function highlight(td) {

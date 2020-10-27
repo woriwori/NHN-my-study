@@ -6,11 +6,14 @@
   <title>Test</title>
 </head>
 <body>
-  <form>
-    <textarea></textarea>
-  </form>
+  <div>
+    <form>
+      <textarea></textarea>
+    </form>
+  </div>
 </body>
 <script>
+const div = document.querySelector('div');
 const form = document.querySelector('form');
 const textarea = document.querySelector('textarea');
 
@@ -19,6 +22,7 @@ const eventAwesome = new CustomEvent('awesome', {
   detail: { text: () => textarea.value }
 });
 
+div.addEventListener('awesome', e => console.log('div 입니다.'));
 form.addEventListener('awesome', e => console.log(e.detail.text()));
 
 textarea.addEventListener('input', e => e.target.dispatchEvent(eventAwesome));
